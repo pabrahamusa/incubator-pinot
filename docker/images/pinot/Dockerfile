@@ -23,7 +23,8 @@ LABEL MAINTAINER=dev@pinot.apache.org
 
 ARG PINOT_BRANCH=master
 ARG KAFKA_VERSION=2.0
-ARG PINOT_GIT_URL="https://github.com/apache/incubator-pinot.git"
+#ARG PINOT_GIT_URL="https://github.com/apache/incubator-pinot.git"
+ARG PINOT_GIT_URL="https://github.com/pabrahamusa/incubator-pinot.git"
 RUN echo "Trying to build Pinot from [ ${PINOT_GIT_URL} ] on branch [ ${PINOT_BRANCH} ] with Kafka version [ ${KAFKA_VERSION} ]"
 ENV PINOT_HOME=/opt/pinot
 ENV PINOT_BUILD_DIR=/opt/pinot-build
