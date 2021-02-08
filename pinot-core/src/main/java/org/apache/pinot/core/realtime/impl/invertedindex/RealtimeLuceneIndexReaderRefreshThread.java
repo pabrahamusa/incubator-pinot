@@ -106,11 +106,12 @@ public class RealtimeLuceneIndexReaderRefreshThread implements Runnable {
 
 
       ConcurrentLinkedQueue<RealtimeLuceneReaders> __luceneRealtimeReaders = new ConcurrentLinkedQueue<>();
+      LOGGER.info(" STARTING WHILE LOOP ");
       while((!_luceneRealtimeReaders.isEmpty())) {
-
+        LOGGER.info(" _luceneRealtimeReaders size now is {}",_luceneRealtimeReaders.size());
         // remove the realtime segment from the front of queue
         RealtimeLuceneReaders realtimeReadersForSegment = _luceneRealtimeReaders.poll();
-        __luceneRealtimeReaders.add(realtimeReadersForSegment);
+
 
         if (realtimeReadersForSegment != null) {
           String segmentName = realtimeReadersForSegment.getSegmentName();
@@ -153,11 +154,16 @@ public class RealtimeLuceneIndexReaderRefreshThread implements Runnable {
           } finally {
             LOGGER.info("adding back the text index readers for consuming segment {} to refresh queue", segmentName);
             //_luceneRealtimeReaders.add(realtimeReadersForSegment);
+            __luceneRealtimeReaders.add(realtimeReadersForSegment);
             realtimeReadersForSegment.getLock().unlock();
           }
         }
-        _luceneRealtimeReaders.addAll(__luceneRealtimeReaders);
+
       }
+      LOGGER.info(" ENDING WHILE LOOP ");
+      _luceneRealtimeReaders.addAll(__luceneRealtimeReaders);
+      LOGGER.info(" Added back all __luceneRealtimeReaders ");
+
 
       try {
         Thread.sleep(DELAY_BETWEEN_SUCCESSIVE_EXECUTION_MS_DEFAULT);
