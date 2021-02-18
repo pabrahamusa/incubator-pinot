@@ -323,7 +323,6 @@ public class MutableSegmentImpl implements MutableSegment {
         textIndex = new RealtimeLuceneTextIndexReader(column, new File(config.getConsumerDir()), _segmentName);
         if (_realtimeLuceneReaders == null) {
           _realtimeLuceneReaders = new RealtimeLuceneReaders(_segmentName);
-          _realtimeLuceneReaders.addReader(new RealtimeLuceneTextIndexReader("dummy", new File("/"), "dummy"));
         }
         _realtimeLuceneReaders.addReader(textIndex);
       } else {
